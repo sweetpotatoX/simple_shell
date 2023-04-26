@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * interactive - returns true if shell is interactive mode
- * @info: struct address
+ * interactive - returns 1 if shell is in input mode
+ * @info: adress of shell
  *
- * Return: 1 if interactive mode, 0 otherwise
+ * Return: 1 if input mode, 0 if not
  */
 int interactive(info_t *info)
 {
@@ -12,63 +12,62 @@ int interactive(info_t *info)
 }
 
 /**
- * is_delim - checks if character is a delimeter
- * @c: the char to check
- * @delim: the delimeter string
+ * is_delim - checks if char is a separator.
+ * @c: the char we want to check
+ * @delim: the separator string
  * Return: 1 if true, 0 if false
  */
-int is_delim(char c, char *delim)
+int is_delimiter(char c, const char *delim)
 {
-    for (int i = 0; delim[i] != '\0'; i++) {
+    for (int i = 0; delim[i] != '\0'; i++)
+    {
         if (c == delim[i]) {
             return 1;
         }
     }
     return 0;
 }
+
+
 /**
  *_isalpha - checks for alphabetic character
  *@c: The character to input
  *Return: 1 if c is alphabetic, 0 otherwise
  */
 
-int is_alpha(char c) {
+int _isalpha(int c)
+{
     return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) ? 1 : 0;
 }
-/**
- * _atoi - converts a string to an integer.
- * @s: An input string.
- * Return: 0 if no numbers in string, converted number if not.
- */
-int _atoi(char *s)
-{
-    int sign = 1;
-    unsigned int total = 0;
-    char null_flag = 0;
 
-    if (s == NULL)
-        return (0);
-    while (*s)
+/**
+ *_atoi - converts a string to an integer
+ *@s: the string to be converted
+ *Return: 0 if no numbers in string, converted number otherwise
+ */
+
+int string_to_int(char *s)
+{
+    int result = 0;
+    int sign = 1;
+
+    if (s[0] == '-')
     {
-        if (*s == '-')
-            sign *= -1;
-        if (*s >= '0' && *s <= '9')
-        {
-            null_flag = 1;
-            total = total * 10 + (*s - '0');
-        }
-        else if (*s == '+' && null_flag == 0)
-        {
-            null_flag = 1;
-        }
-        else if (*s < '0' || *s > '9')
-        {
-            if (null_flag == 1)
-                break;
-        }
+        sign = -1;
         s++;
     }
-if (sign < 0)
-total = (-1 * (total));
-return (total);
+
+    for (int i = 0; s[i] != '\0'; i++)
+    {
+        if (s[i] >= '0' && s[i] <= '9')
+        {
+            result = result * 10 + (s[i] - '0');
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return result * sign;
 }
