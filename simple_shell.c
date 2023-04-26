@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
+#include "shell.h"
 #define MAX_CMD_LENGTH 100
 
 int main()
