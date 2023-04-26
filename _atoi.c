@@ -21,7 +21,9 @@ int interactive(info_t *info)
  */
 int is_delimiter(char c, const char *delim)
 {
-	for (int i = 0; delim[i] != '\0'; i++)
+	int i;
+
+	for (i = 0; delim[i] != '\0'; i++)
 	{
 		if (c == delim[i])
 		{
@@ -52,13 +54,14 @@ int string_to_int(char *s)
 {
 	int result = 0;
 	int sign = 1;
+	int i;
 
 	if (s[0] == '-')
 	{
 		sign = -1;
 		s++;
 	}
-	for (int i = 0; s[i] != '\0'; i++)
+	for (i = 0; s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
 		{
