@@ -53,8 +53,7 @@ int _mycd(info_t *info)
 		else
 			chdirer_retu = chdir(direr);
 	}
-	/* If argument is "-", change to previous directory */
-	else if (_strcmp(info->argv[1], "-") == 0)
+	else if (_strcmp(info->argv[1], "-") == 0) /* If argument is "-", change to previous directory */
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
@@ -68,9 +67,8 @@ int _mycd(info_t *info)
 		_putchar('\n');
 		chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
 	}
-	/* Change to specified directory */
 	else
-		chdirer_retu = chdir(info->argv[1]);
+	chdirer_retu = chdir(info->argv[1]); /* Change to specified directory */
 
 	/* If change directory failed, print error message */
 	if (chdirer_retu == -1)
@@ -79,7 +77,6 @@ int _mycd(info_t *info)
 		_eputs(info->argv[1]);
 		_eputchar('\n');
 	}
-	/* Update environment variables for new working directory */
 	else
 	{
 		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
