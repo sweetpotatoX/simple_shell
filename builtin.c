@@ -1,17 +1,16 @@
 #include "shell.h"
 
 /**
- * _myexit - exits the shell
- * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: exits with a given exit status
- * (0) if info.argv[0] != "exit"
+ * _myexit - Exits the shell
+ * @info: Structure containing potential arguments
+ *
+ * Return: Exits with a given exit status (0) if info.argv[0] != "exit"
  */
 int _myexit(info_t *info)
 {
 	int exitcheck;
 
-	if (info->argv[1]) /* If there is an exit arguement */
+	if (info->argv[1])
 	{
 		exitcheck = _erratoi(info->argv[1]);
 		if (exitcheck == -1)
@@ -30,8 +29,8 @@ int _myexit(info_t *info)
 }
 
 /**
- * _mycd - changes current working directory
- * @info: pointer to struct of shell info
+ * _mycd - Changes current working directory
+ * @info: Pointer to struct of shell info
  *
  * Return: 0 on success, 1 on error
  */
@@ -40,47 +39,47 @@ int _mycd(info_t *info)
 	char *stringer, *direr, buff[1024];
 	int chdirer_retu;
 
-	/* get current working directory */
+	/* Get current working directory */
 	stringer = getcwd(buff, 1024);
 	if (!stringer)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 
-	/* if no argument, change to home directory */
+	/* If no argument, change to home directory */
 	if (!info->argv[1])
 	{
 		direr = _getenv(info, "HOME=");
 		if (!direr)
-			chdirer_retu = 
-				chdir((direr = _getenv(info, "PWD=")) ? direr : "/");
+			chdirer_retu = chdir((direr = _getenv(info, "PWD=")) ? direr : "/");
 		else
 			chdirer_retu = chdir(direr);
 	}
-	/* if argument is "-", change to previous directory */
+	/* If argument is "-", change to previous directory */
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
-			/* print current directory */
+			/* Print current directory */
 			_puts(stringer);
 			_putchar('\n');
 			return (1);
 		}
-		/* print previous directory and change to it */
-		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdirer_retu = /* TODO: what should this be? */
-			chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
+		/* Print previous directory and change to it */
+		_puts(_getenv(info, "OLDPWD="));
+		_putchar('\n');
+		chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
 	}
-	/* change to specified directory */
+	/* Change to specified directory */
 	else
 		chdirer_retu = chdir(info->argv[1]);
 
-	/* if change directory failed, print error message */
+	/* If change directory failed, print error message */
 	if (chdirer_retu == -1)
 	{
 		print_error(info, "can't cd to ");
-		_eputs(info->argv[1]), _eputchar('\n');
+		_eputs(info->argv[1]);
+		_eputchar('\n');
 	}
-	/* update environment variables for new working directory */
+	/* Update environment variables for new working directory */
 	else
 	{
 		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
@@ -90,20 +89,18 @@ int _mycd(info_t *info)
 }
 
 /**
- * _myhelp - displays help information about shell builtins
- * @info: pointer to struct of command info
+ * _myhelp - Displays help information about shell builtins
+ * @info: Pointer to struct of command info
  *
  * Return: Always 0
  */
 int _myhelp(info_t *info)
 {
-	char **arg_array; /* declare variable with descriptive name */
+	char **arg_array;
 
 	arg_array = info->argv;
-	_puts("help call works. Function not yet implemented \n"); /* print a message indicating help is not yet implemented */
+	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* temporary workaround to avoid unused variable warning */
+		_puts(*arg_array); /* Temporary workaround to avoid unused variable warning */
 	return (0);
 }
-
-
