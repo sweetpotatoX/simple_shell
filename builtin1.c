@@ -61,7 +61,7 @@ int set_alias(info_t *info, char *str)
 	if (!p)
 		return (1); /* Return an error if there is no '=' character */
 
-	/* If the character immediately following the '=' is a null terminator, unset the alias */
+	/* If the character immediately following the '=' is a null terminator */
 	if (!*++p)
 		return (unset_alias(info, str));
 
@@ -113,7 +113,7 @@ int _myalias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			print_alias(node); // print each alias node
+			print_alias(node); /*print each alias node*/
 			node = node->next;
 		}
 		return (0);
@@ -123,9 +123,9 @@ int _myalias(info_t *info)
 	{
 		pread = _strchr(info->argv[index], '=');
 		if (pread)
-			set_alias(info, info->argv[index]); // set alias
+			set_alias(info, info->argv[index]); /* set alias */
 		else
-			print_alias(node_starts_with(info->alias, info->argv[index], '=')); // print alias node that matches pattern
+			print_alias(node_starts_with(info->alias, info->argv[index], '='));
 	}
 
 	return (0);
