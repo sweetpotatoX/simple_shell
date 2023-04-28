@@ -29,7 +29,6 @@ int _myexit(info_t *info)
 }
 
 /**
- *
  *_mycd - Changes current working directory
  *@info: Pointer to struct of shell info
  *Return: 0 on success, 1 on error
