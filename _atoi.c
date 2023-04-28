@@ -20,10 +20,10 @@ int interactive(info_t *info)
  */
 int is_delim(char c, char *delim)
 {
-	while (*delim) // iterate through the delimiter string
-		if (*delim++ == c) // if a match is found, return 1
+	while (*delim) /*iterate through the delimiter string*/
+		if (*delim++ == c) /* if a match is found, return 1*/
 			return (1);
-	return (0); // if no match is found, return 0
+	return (0); /* if no match is found, return 0 */
 }
 /**
  * _isalpha - checks for alphabetic character
