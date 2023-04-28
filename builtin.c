@@ -53,7 +53,7 @@ int _mycd(info_t *info)
 		else
 			chdirer_retu = chdir(direr);
 	}
-	else if (_strcmp(info->argv[1], "-") == 0) /* If argument is "-", change to previous directory */
+else if (_strcmp(info->argv[1], "-") == 0) /* If argument is "-"*/
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
@@ -68,9 +68,7 @@ int _mycd(info_t *info)
 		chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
 	}
 	else
-	chdirer_retu = chdir(info->argv[1]); /* Change to specified directory */
-
-	/* If change directory failed, print error message */
+	chdirer_retu = chdir(info->argv[1]);
 	if (chdirer_retu == -1)
 	{
 		print_error(info, "can't cd to ");
@@ -98,6 +96,6 @@ int _myhelp(info_t *info)
 	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* Temporary workaround to avoid unused variable warning */
+		_puts(*arg_array); /* Temporary workaround to avoid unused variable warning*/
 	return (0);
 }
