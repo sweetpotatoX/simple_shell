@@ -38,12 +38,9 @@ int _mycd(info_t *info)
 {
 	char *stringer, *direr, buff[1024];
 	int chdirer_retu;
-
-	/* Get current working directory */
 	stringer = getcwd(buff, 1024);
 	if (!stringer)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
-
 	/* If no argument, change to home directory */
 	if (!info->argv[1])
 	{
@@ -53,16 +50,14 @@ int _mycd(info_t *info)
 		else
 			chdirer_retu = chdir(direr);
 	}
-else if (_strcmp(info->argv[1], "-") == 0) /* If argument is "-"*/
+        elseif (_strcmp(info->argv[1], "-") == 0) /* If argument is "-"*/
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
-			/* Print current directory */
 			_puts(stringer);
 			_putchar('\n');
 			return (1);
 		}
-		/* Print previous directory and change to it */
 		_puts(_getenv(info, "OLDPWD="));
 		_putchar('\n');
 		chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
