@@ -30,69 +30,80 @@ int _myexit(info_t *info)
 }
 
 /**
- * _mycd - changes the current directory of the process
- * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: Always 0
+ * _mycd - changes current working directory
+ * @info: pointer to struct of shell info
+ *
+ * Return: 0 on success, 1 on error
  */
 int _mycd(info_t *info)
 {
-	char *s, *dir, buffer[1024];
-	int chdir_ret;
+	char *stringer, *direr, buff[1024];
+	int chdirer_retu;
 
-	s = getcwd(buffer, 1024);
-	if (!s)
+	/* get current working directory */
+	stringer = getcwd(buff, 1024);
+	if (!stringer)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
+
+	/* if no argument, change to home directory */
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME=");
-		if (!dir)
-			chdir_ret = /* TODO: what should this be? */
-				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		direr = _getenv(info, "HOME=");
+		if (!direr)
+			chdirer_retu = 
+				chdir((direr = _getenv(info, "PWD=")) ? direr : "/");
 		else
-			chdir_ret = chdir(dir);
+			chdirer_retu = chdir(direr);
 	}
+	/* if argument is "-", change to previous directory */
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
-			_puts(s);
+			/* print current directory */
+			_puts(stringer);
 			_putchar('\n');
 			return (1);
 		}
+		/* print previous directory and change to it */
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret = /* TODO: what should this be? */
-			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+		chdirer_retu = /* TODO: what should this be? */
+			chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
 	}
+	/* change to specified directory */
 	else
-		chdir_ret = chdir(info->argv[1]);
-	if (chdir_ret == -1)
+		chdirer_retu = chdir(info->argv[1]);
+
+	/* if change directory failed, print error message */
+	if (chdirer_retu == -1)
 	{
 		print_error(info, "can't cd to ");
 		_eputs(info->argv[1]), _eputchar('\n');
 	}
+	/* update environment variables for new working directory */
 	else
 	{
 		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
-		_setenv(info, "PWD", getcwd(buffer, 1024));
+		_setenv(info, "PWD", getcwd(buff, 1024));
 	}
 	return (0);
 }
 
 /**
- * _myhelp - changes the current directory of the process
- * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
+ * _myhelp - displays help information about shell builtins
+ * @info: pointer to struct of command info
+ *
  * Return: Always 0
  */
 int _myhelp(info_t *info)
 {
-	char **arg_array;
+	char **arg_array; /* declare variable with descriptive name */
 
 	arg_array = info->argv;
-	_puts("help call works. Function not yet implemented \n");
+	_puts("help call works. Function not yet implemented \n"); /* print a message indicating help is not yet implemented */
 	if (0)
-		_puts(*arg_array); /* temp att_unused workaround */
+		_puts(*arg_array); /* temporary workaround to avoid unused variable warning */
 	return (0);
 }
+
 
