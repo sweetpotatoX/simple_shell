@@ -14,27 +14,36 @@ int _myhistory(info_t *info)
 }
 
 /**
- * unset_alias - sets alias to string
- * @info: parameter struct
- * @str: the string alias
+ * unset_alias - removes an alias from the alias list
+ * @info: pointer to a structure containing program information
+ * @str: string containing the alias to be removed
  *
- * Return: Always 0 on success, 1 on error
+ * Return: 0 on success, 1 on failure
  */
 int unset_alias(info_t *info, char *str)
 {
-	char *p, c;
+	char *p, ch;
 	int ret;
 
+	/* Find the position of the '=' character in the string */
 	p = _strchr(str, '=');
 	if (!p)
 		return (1);
-	c = *p;
+
+	/* Save the character that follows the '=' character */
+	ch = *p;
 	*p = 0;
+
+	/* Remove the alias from the alias list */
 	ret = delete_node_at_index(&(info->alias),
 		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
-	*p = c;
+
+	/* Restore the character that followed the '=' character */
+	*p = ch;
+
 	return (ret);
 }
+
 
 /**
  * set_alias - sets alias to string
