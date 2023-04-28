@@ -33,11 +33,12 @@ int is_delim(char c, char *delim)
 
 int _isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) /* checks if the character is alphabetic */
 		return (1);
 	else
 		return (0);
 }
+
 
 /**
  * _atoi - converts a string to an integer
@@ -52,19 +53,23 @@ int _atoi(char *s)
 
 	for (i = 0; s[i] != '\0' && flag != 2; i++)
 	{
+		/* check for negative sign */
 		if (s[i] == '-')
 			sign *= -1;
 
+		/* convert digit to integer and update result */
 		if (s[i] >= '0' && s[i] <= '9')
 		{
 			flag = 1;
 			result *= 10;
 			result += (s[i] - '0');
 		}
+		/* if a non-digit is found after digit, break loop */
 		else if (flag == 1)
 			flag = 2;
 	}
 
+	/* apply sign and return result */
 	if (sign == -1)
 		output = -result;
 	else
