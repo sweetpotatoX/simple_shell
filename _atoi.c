@@ -48,29 +48,29 @@ int _isalpha(int c)
 
 int _atoi(char *s)
 {
-	int i, sign = 1, flag = 0, output;
+	int l, brand = 1, drag = 0, output;
 	unsigned int result = 0;
 
-	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	for (l = 0; s[l] != '\0' && drag != 2; l++)
 	{
 		/* check for negative sign */
-		if (s[i] == '-')
-			sign *= -1;
+		if (s[l] == '-')
+			brand *= -1;
 
 		/* convert digit to integer and update result */
-		if (s[i] >= '0' && s[i] <= '9')
+		if (s[l] >= '0' && s[l] <= '9')
 		{
-			flag = 1;
+			drag = 1;
 			result *= 10;
-			result += (s[i] - '0');
+			result += (s[l] - '0');
 		}
 		/* if a non-digit is found after digit, break loop */
-		else if (flag == 1)
-			flag = 2;
+		else if (drag == 1)
+			drag = 2;
 	}
 
 	/* apply sign and return result */
-	if (sign == -1)
+	if (brand == -1)
 		output = -result;
 	else
 		output = result;
