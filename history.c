@@ -72,8 +72,8 @@ int read_history(info_t *info)
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
 	char *buffer = NULL, *filn = get_history_file(info);
-	
 	if (!filn)
+		
 		return (0);
 
 	fd = open(filn, O_RDONLY);
