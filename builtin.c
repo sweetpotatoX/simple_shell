@@ -29,63 +29,51 @@ int _myexit(info_t *info)
 }
 
 /**
- * _mycd - Changes current working directory
- * @info: Pointer to struct of shell info
- *
- * Return: 0 on success, 1 on error
- */
+ *_mycd - Changes current working directory
+ *@info: Pointer to struct of shell info
+ *Return: 0 on success, 1 on error
+*/
 int _mycd(info_t *info)
 {
-	char *stringer, *direr, buff[1024];
-	int chdirer_retu;
-
-	/* Get current working directory */
-	stringer = getcwd(buff, 1024);
-	if (!stringer)
-		_puts("TODO: >>getcwd failure emsg here<<\n");
-
-	/* If no argument, change to home directory */
-	if (!info->argv[1])
-	{
-		direr = _getenv(info, "HOME=");
-		if (!direr)
-			chdirer_retu = chdir((direr = _getenv(info, "PWD=")) ? direr : "/");
-		else
-			chdirer_retu = chdir(direr);
-	}
-	/* If argument is "-", change to previous directory */
-	else if (_strcmp(info->argv[1], "-") == 0)
-	{
-		if (!_getenv(info, "OLDPWD="))
-		{
-			/* Print current directory */
-			_puts(stringer);
-			_putchar('\n');
-			return (1);
-		}
-		/* Print previous directory and change to it */
-		_puts(_getenv(info, "OLDPWD="));
-		_putchar('\n');
-		chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
-	}
-	/* Change to specified directory */
-	else
-		chdirer_retu = chdir(info->argv[1]);
-
-	/* If change directory failed, print error message */
-	if (chdirer_retu == -1)
-	{
-		print_error(info, "can't cd to ");
-		_eputs(info->argv[1]);
-		_eputchar('\n');
-	}
-	/* Update environment variables for new working directory */
-	else
-	{
-		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
-		_setenv(info, "PWD", getcwd(buff, 1024));
-	}
-	return (0);
+char *stringer, *direr, buff[1024];
+int chdirer_retu;
+stringer = getcwd(buff, 1024);
+if (!stringer)
+_puts("TODO: >>getcwd failure emsg here<<\n");
+if (!info->argv[1])
+{
+direr = _getenv(info, "HOME=");
+if (!direr)
+chdirer_retu = chdir((direr = _getenv(info, "PWD=")) ? direr : "/");
+else
+chdirer_retu = chdir(direr);
+}
+else if (_strcmp(info->argv[1], "-") == 0)
+{
+if (!_getenv(info, "OLDPWD="))
+{
+_puts(stringer);
+_putchar('\n');
+return (1);
+}
+_puts(_getenv(info, "OLDPWD="));
+_putchar('\n');
+chdirer_retu = chdir((direr = _getenv(info, "OLDPWD=")) ? direr : "/");
+}
+else
+chdirer_retu = chdir(info->argv[1]);
+if (chdirer_retu == -1)
+{
+print_error(info, "can't cd to ");
+_eputs(info->argv[1]);
+_eputchar('\n');
+}
+else
+{
+_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+_setenv(info, "PWD", getcwd(buff, 1024));
+}
+return (0);
 }
 
 /**
@@ -101,6 +89,6 @@ int _myhelp(info_t *info)
 	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* Temporary workaround to avoid unused variable warning */
+		_puts(*arg_array); /* Temporary workaround to avoid unused variable warning*/
 	return (0);
 }
