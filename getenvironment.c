@@ -1,22 +1,23 @@
 #include "shell.h"
 
 /**
- * get_environ - Returns a copy of the environment variables as an array of strings.
+ * get_environ - Returns a copy of the environment variables as an arr of str.
  *
- * @info: Structure containing potential arguments. Used to maintain a consistent function prototype.
+ * @info: Structure containing potential arguments. Used to maintain 
+ * a consistent function prototype.
  *
  * Return: A pointer to the environment variables as an array of strings.
  */
 char **get_environ(info_t *info)
 {
-	/* If info->environ is NULL or env_changed flag is set, convert the linked list to an array of strings */
+	/* If info->environ is NULL or env_changed flag is set array of strings */
 	if (!info->environ || info->env_changed)
 	{
 		info->environ = list_to_strings(info->env);
 		info->env_changed = 0; /* Reset the flag */
 	}
 
-	return (info->environ); /* Return a copy of the environment variables as an array of strings */
+	return (info->environ); /* Return a copy of the environment variables as an array*/
 }
 
 /**
