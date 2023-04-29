@@ -26,7 +26,7 @@ char *_getenv(info_t *info, const char *name)
 
 	while (node)
 	{
-		/* Get a pointer to the value of the environment variable if it matches the given name */
+		/*pointer to the value of the environment var if it matches the given name */
 		k = starts_with(node->str, name);
 		if (k && *k) /* Ensure that a non-empty string was returned */
 			return (k);
@@ -72,9 +72,8 @@ int _myunsetenv(info_t *info)
 	{
 		_eputs("Too few arguments.\n");
 		return (1);
-	}
-	
-	/* Loop through all arguments and remove corresponding environment variables */
+	}	
+	/* Loop through all arguments and remove corresponding environment variables*/
 	for (index = 1; index <= info->argc; index++)
 		_unsetenv(info, info->argv[index]);
 
