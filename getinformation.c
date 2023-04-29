@@ -1,8 +1,10 @@
 #include "shell.h"
 
 /**
- * clear_info - initializes info_t struct
- * @info: struct address
+ * clear_info - Initializes an info_t struct by clearing its fields
+ * @info: Pointer to the info_t struct to be cleared
+ *
+ * This function sets all fields of the given info_t struct to NULL or 0.
  */
 void clear_info(info_t *info)
 {
@@ -12,10 +14,12 @@ void clear_info(info_t *info)
 	info->argc = 0;
 }
 
+
 /**
- * set_info - initializes info_t struct
- * @info: struct address
- * @av: argument vector
+ * set_info - Initializes an `info_t` struct with the given arguments.
+ *
+ * @info: A pointer to the `info_t` struct to initialize.
+ * @av: The argument vector to use for initialization.
  */
 void set_info(info_t *info, char **av)
 {
@@ -47,6 +51,13 @@ void set_info(info_t *info, char **av)
  * free_info - frees info_t struct fields
  * @info: struct address
  * @all: true if freeing all fields
+ *
+ * This function frees the fields of the info_t struct based on the value of
+ * the "all" parameter. If "all" is true, all fields are freed. If "all" is
+ * false, only some fields are freed. Specifically, the "argv" and "path"
+ * fields are always freed. If "all" is true, the "arg", "env", "history",
+ * "alias", "environ", and "cmd_buf" fields are also freed, and the read
+ * file descriptor is closed and the output buffer is flushed.
  */
 void free_info(info_t *info, int all)
 {
