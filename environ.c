@@ -72,7 +72,7 @@ int _myunsetenv(info_t *info)
 	{
 		_eputs("Too few arguments.\n");
 		return (1);
-	}	
+	}
 	/* Loop through all arguments and remove corresponding environment variables*/
 	for (index = 1; index <= info->argc; index++)
 		_unsetenv(info, info->argv[index]);
