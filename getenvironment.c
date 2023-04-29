@@ -1,50 +1,52 @@
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- * Return: Always 0
+ * get_environ - Returns a copy of the environment variables as an array of strings.
+ *
+ * @info: Structure containing potential arguments. Used to maintain a consistent function prototype.
+ *
+ * Return: A pointer to the environment variables as an array of strings.
  */
 char **get_environ(info_t *info)
 {
+	/* If info->environ is NULL or env_changed flag is set, convert the linked list to an array of strings */
 	if (!info->environ || info->env_changed)
 	{
 		info->environ = list_to_strings(info->env);
-		info->env_changed = 0;
+		info->env_changed = 0; /* Reset the flag */
 	}
 
-	return (info->environ);
+	return (info->environ); /* Return a copy of the environment variables as an array of strings */
 }
 
 /**
  * _unsetenv - Remove an environment variable
  * @info: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
+ * constant function prototype.
  *  Return: 1 on delete, 0 otherwise
  * @var: the string env var property
  */
 int _unsetenv(info_t *info, char *var)
 {
 	list_t *node = info->env;
-	size_t i = 0;
-	char *p;
+	size_t index = 0;
+	char *point;
 
 	if (!node || !var)
 		return (0);
 
 	while (node)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		point = starts_with(node->str, var);
+		if (point && *point == '=')
 		{
-			info->env_changed = delete_node_at_index(&(info->env), i);
-			i = 0;
+			info->env_changed = delete_node_at_index(&(info->env), index);
+			index = 0;
 			node = info->env;
 			continue;
 		}
 		node = node->next;
-		i++;
+		index++;
 	}
 	return (info->env_changed);
 }
@@ -56,38 +58,38 @@ int _unsetenv(info_t *info, char *var)
  *        constant function prototype.
  * @var: the string env var property
  * @value: the string env var value
- *  Return: Always 0
+ * Return: Always 0
  */
 int _setenv(info_t *info, char *var, char *value)
 {
-	char *buf = NULL;
+	char *buffer = NULL;
 	list_t *node;
-	char *p;
+	char *point;
 
 	if (!var || !value)
 		return (0);
 
-	buf = malloc(_strlen(var) + _strlen(value) + 2);
-	if (!buf)
+	buffer = malloc(_strlen(var) + _strlen(value) + 2);
+	if (!buffer)
 		return (1);
-	_strcpy(buf, var);
-	_strcat(buf, "=");
-	_strcat(buf, value);
+	_strcpy(buffer, var);
+	_strcat(buffer, "=");
+	_strcat(buffer, value);
 	node = info->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		point = starts_with(node->str, var);
+		if (point && *point == '=')
 		{
 			free(node->str);
-			node->str = buf;
+			node->str = buffer;
 			info->env_changed = 1;
 			return (0);
 		}
 		node = node->next;
 	}
-	add_node_end(&(info->env), buf, 0);
-	free(buf);
+	add_node_end(&(info->env), buffer, 0);
+	free(buffer);
 	info->env_changed = 1;
 	return (0);
 }
