@@ -4,7 +4,7 @@
  * clear_info - Initializes an info_t struct by clearing its fields
  * @info: Pointer to the info_t struct to be cleared
  *
- * This function sets all fields of the given info_t struct to NULL or 0.
+ * This function sets all fields of the given info_t struct to NULL or .
  */
 void clear_info(info_t *info)
 {
