@@ -21,8 +21,9 @@ char *get_history_file(info_t *info)
 	if (!buffer)
 		return (NULL);
 
-	/* Set the buffer to an empty string, copy the directory path to the buffer, and
-	 * concatenate the history file name to the end of the buffer. */
+	/* Set the buffer to an empty string, copy the directory path to the buffer,
+	 * concatenate the history file name to the end of the buffer.
+	 */
 	buffer[0] = '\0';
 	_strcpy(buffer, directory);
 	_strcat(buffer, "/");
@@ -71,11 +72,10 @@ int write_history(info_t *info)
  */
 int read_history(info_t *info)
 {
-	int index, l = 0, lc = 0; 
+	int index, l = 0, lc = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
 	char *buffer = NULL, *filn = get_history_file(info);
-
 	if (!filn)
 		return (0);
 
@@ -102,7 +102,7 @@ int read_history(info_t *info)
 			build_history_list(info, buffer + l, lc++);
 			l = index + 1;
 		}
-	if (l != index) 
+	if (l != index)
 		build_history_list(info, buffer + l, lc++);
 	free(buffer);
 	info->histcount = lc;
