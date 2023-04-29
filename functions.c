@@ -1,21 +1,30 @@
+#include <string.h>
 #include "shell.h"
-
 /**
- * _strlen - returns the length of a string
- * @s: the string whose length to check
+ * _strlen - checks for the length of a string
+ * @s: string parameter
  *
- * Return: integer length of string
+ * Return: 0 success
  */
 int _strlen(char *s)
 {
-	int i = 0;
+	int len;
 
-	if (!s)
-		return (0);
+	len = strlen(s);
+	return (len);
+}
 
-	while (*s++)
-		i++;
-	return (i);
+/**
+ * _strcat - concatenates strings
+ * @dest: destination string
+ * @src: source string
+ *
+ * Return: dest on success
+ */
+char *_strcat(char *dest, char *src)
+{
+	strcat(dest, src);
+	return (dest);
 }
 
 /**
@@ -53,23 +62,4 @@ char *starts_with(const char *haystack, const char *needle)
 		if (*needle++ != *haystack++)
 			return (NULL);
 	return ((char *)haystack);
-}
-
-/**
- * _strcat - concatenates two strings
- * @dest: the destination buffer
- * @src: the source buffer
- *
- * Return: pointer to destination buffer
- */
-char *_strcat(char *dest, char *src)
-{
-	char *ret = dest;
-
-	while (*dest)
-		dest++;
-	while (*src)
-		*dest++ = *src++;
-	*dest = *src;
-	return (ret);
 }
