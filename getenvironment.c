@@ -3,7 +3,7 @@
 /**
  * get_environ - Returns a copy of the environment variables as an arr of str.
  *
- * @info: Structure containing potential arguments. Used to maintain 
+ * @info: Structure containing potential arguments. Used to maintain
  * a consistent function prototype.
  *
  * Return: A pointer to the environment variables as an array of strings.
@@ -17,7 +17,7 @@ char **get_environ(info_t *info)
 		info->env_changed = 0; /* Reset the flag */
 	}
 
-	return (info->environ); /* Return a copy of the environment variables as an array*/
+	return (info->environ); /* Return environment copy variables as an array*/
 }
 
 /**
