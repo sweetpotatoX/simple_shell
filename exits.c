@@ -70,7 +70,7 @@ char *_strncat(char *dest, char *src, int n)
  * @s: the string to be searched
  * @c: the character to be located
  *
- * Return: a pointer to the first occurrence of the character c in the string s,
+ * Return: pointer to the first occurrence of the character c in the string s,
  * or NULL if the character is not found.
  */
 char *_strchr(char *s, char c)
